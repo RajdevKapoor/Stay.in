@@ -1,5 +1,5 @@
 
-# EasyLease
+# Stay.in
 
 One Stop solution for all your subleasing problems.
 
