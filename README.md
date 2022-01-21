@@ -1,7 +1,7 @@
 
 # Stay.in
 
-One Stop solution for all your subleasing problems.
+One Stop solution for all your stay-in-g problems.
 
 ## Authors
 
