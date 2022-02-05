@@ -19,3 +19,8 @@ Backend
 
 https://user-images.githubusercontent.com/43610780/152627591-f941900b-94e9-41a4-8721-668ab790c81c.mp4
 
+Backend
+- Established connection between database and backend
+- Created a database schema
+- Created API's for login
+
