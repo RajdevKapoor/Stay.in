@@ -12,7 +12,6 @@ Frontend
 - Added Signup/Signin Page
 - Dummy apis were used to render real-world characteristics.
 
-Backend
 
 
 ## Video Demo
@@ -23,4 +22,8 @@ Backend
 - Established connection between database and backend
 - Created a database schema
 - Created API's for login
+
+Video Link:
+
+https://drive.google.com/drive/u/1/folders/1mZAHnpzlO-f2WfZohFaWgVbruwyCRf-M
 
