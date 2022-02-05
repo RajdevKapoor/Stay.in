@@ -18,7 +18,7 @@ const Search = ({ properties }) => {
       <Flex
         onClick={() => setSearchFilters(!searchFilters)}
         cursor='pointer'
-        bg='gray.100'
+        // bg='gray.100'
         borderBottom='1px'
         borderColor='gray.200'
         p='2'

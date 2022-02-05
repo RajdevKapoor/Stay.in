@@ -45,7 +45,7 @@ export default function SearchFilters() {
   }, [searchTerm]);
 
   return (
-    <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
+    <Flex  p='4' justifyContent='center' flexWrap='wrap'>
       {filters?.map((filter) => (
         <Box key={filter.queryName}>
           <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
@@ -58,7 +58,7 @@ export default function SearchFilters() {
         </Box>
       ))}
       <Flex flexDir='column'>
-        <Button onClick={() => setShowLocations(!showLocations)} border='1px' borderColor='gray.200' marginTop='2' >
+        <Button onClick={() => setShowLocations(!showLocations)} border='1px' borderColor='gray.200' marginTop='2' background='' hover='#0000FFFF' >
           Search Location
         </Button>
         {showLocations && (
@@ -83,7 +83,7 @@ export default function SearchFilters() {
             )}
             {loading && <Spinner margin='auto' marginTop='3' />}
             {showLocations && (
-              <Box height='300px' overflow='auto'>
+              <Box height='300px' overflow='auto' background=''>
                 {locationData?.map((location) => (
                   <Box
                     key={location.id}
@@ -93,7 +93,7 @@ export default function SearchFilters() {
                       setSearchTerm(location.name);
                     }}
                   >
-                    <Text cursor='pointer' bg='gray.200' p='2' borderBottom='1px' borderColor='gray.100' >
+                    <Text cursor='pointer' bg='' p='2' border='1px'  borderColor='gray.100' >
                       {location.name}
                     </Text>
                   </Box>
