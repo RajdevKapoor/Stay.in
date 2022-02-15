@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"gotest/controllers"
+	"gotest/dbase"
+	// "gotest/model"
 
-	"./controllers"
-	"./database"
 	"github.com/gofiber/fiber"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	// "./model"
 )
 
 func setupRoutes(app *fiber.App) {
@@ -16,18 +16,18 @@ func setupRoutes(app *fiber.App) {
 		c.Send("Hello, World!")
 	})
 	app.Post("/api/v1/signup", controllers.Signup)
-	app.Get("api/v1/signin/:email", controllers.Signin)
+	app.Get("/api/v1/signin", controllers.Signin)
 }
 
 func initDatabase() {
 	var err error
-	database.DBConn, err = gorm.Open("sqlite3", "books.db")
+	dbase.DBConn, err = gorm.Open("sqlite3", "stayDB/db1.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
 	fmt.Println("Connection Opened to Database")
+//	dbase.DBConn.AutoMigrate(&model.User{})
 }
-
 func main() {
 	app := fiber.New()
 	initDatabase()
