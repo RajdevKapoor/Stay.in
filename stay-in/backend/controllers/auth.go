@@ -5,6 +5,7 @@ import (
 
 	"gotest/dbase"
 	"gotest/model"
+
 	"github.com/gofiber/fiber"
 )
 
@@ -14,14 +15,12 @@ func Signup(c *fiber.Ctx) {
 	db := dbase.DBConn
 	fmt.Println(db)
 	var u model.User
-	u.FirstName = "Dharani"
-	u.LastName = "Kanchanapalli"
-	u.Email = "dharanik@gmail.com"
+	u.FirstName = "D"
+	u.LastName = "K"
+	u.Email = "dk@gmail.com"
 	u.Password = "1234"
 	db.Create(&u)
-	fmt.Println("signup working")
-	// fmt.Println(db.Create(&u))
-	fmt.Println(c.JSON(u))
+	c.JSON(u)
 }
 
 func Signin(c *fiber.Ctx) {
