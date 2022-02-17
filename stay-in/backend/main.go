@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"gotest/controllers"
 	"gotest/dbase"
+	"gotest/model"
+
 	// "gotest/model"
 
 	"github.com/gofiber/fiber"
@@ -26,7 +28,8 @@ func initDatabase() {
 		panic("failed to connect database")
 	}
 	fmt.Println("Connection Opened to Database")
-//	dbase.DBConn.AutoMigrate(&model.User{})
+	dbase.DBConn.AutoMigrate(&model.User{})
+	fmt.Println("Database Migrated")
 }
 func main() {
 	app := fiber.New()
