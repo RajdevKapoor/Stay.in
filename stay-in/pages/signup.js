@@ -20,6 +20,28 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
 
+
+  const registerUser = async (event) => {
+    event.preventDefault();
+    // const res = await fetch('/api/register', {
+    //   body: JSON.stringify({
+    //     name: event.target.name.value
+    //   }),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   method: 'POST'
+    // })
+
+    // const result = await res.json()
+
+    console.log(event.target.firstName.value + " "+event.target.lastName.value +" "+event.target.email.value+" "+event.target.password.value);
+
+    //TODO: Pass above values in API 
+
+    // result.user => 'Ada Lovelace'
+  };
+
   return (
     <Flex borderRadius='xl' borderWidth={3}
       minH={'100vh'}
@@ -40,7 +62,7 @@ export default function SignupCard() {
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'} color={"black"} 
           p={8}>
-          <Stack spacing={4}>
+            <form onSubmit={registerUser}> <Stack spacing={4}>
             <HStack>
               <Box >
                 <FormControl id="firstName" isRequired>
@@ -76,6 +98,7 @@ export default function SignupCard() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+              type='Submit'
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
@@ -88,10 +111,11 @@ export default function SignupCard() {
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Already a user? <Link color={'blue.400'} href="/signin">Login</Link>
               </Text>
             </Stack>
-          </Stack>
+          </Stack></form>
+          
         </Box>
       </Stack>
     </Flex>
