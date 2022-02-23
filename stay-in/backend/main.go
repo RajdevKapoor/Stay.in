@@ -2,15 +2,8 @@ package main
 
 import (
 	"fmt"
-	"gotest/controllers"
-	"gotest/dbase"
-	"gotest/model"
 
-	// "gotest/model"
-
-	"github.com/gofiber/fiber"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/gofiber/fiber/v2"
 )
 
 func setupRoutes(app *fiber.App) {
@@ -28,8 +21,7 @@ func initDatabase() {
 		panic("failed to connect database")
 	}
 	fmt.Println("Connection Opened to Database")
-	dbase.DBConn.AutoMigrate(&model.User{})
-	fmt.Println("Database Migrated")
+//	dbase.DBConn.AutoMigrate(&model.User{})
 }
 func main() {
 	app := fiber.New()
