@@ -1,31 +1,18 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/RajdevKapoor/Stay.in/database"
+	"github.com/RajdevKapoor/Stay.in/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/rs/cors"
 )
 
-func setupRoutes(app *fiber.App) {
-	app.Get("/", func(c *fiber.Ctx) {
-		c.Send("Hello, World!")
-	})
-	app.Post("/api/v1/signup", controllers.Signup)
-	app.Get("/api/v1/signin", controllers.Signin)
-}
-
-func initDatabase() {
-	var err error
-	dbase.DBConn, err = gorm.Open("sqlite3", "stayDB/db1.db")
-	if err != nil {
-		panic("failed to connect database")
-	}
-	fmt.Println("Connection Opened to Database")
-//	dbase.DBConn.AutoMigrate(&model.User{})
-}
 func main() {
+	database.Connect()
+
 	app := fiber.New()
-	initDatabase()
-	setupRoutes(app)
-	app.Listen(3000)
+	app.Use(cors.New())
+	routes.Setup(app)
+
+	app.Listen(":8000")
 }
