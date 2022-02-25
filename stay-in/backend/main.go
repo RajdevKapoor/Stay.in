@@ -4,7 +4,7 @@ import (
 	"github.com/RajdevKapoor/Stay.in/database"
 	"github.com/RajdevKapoor/Stay.in/routes"
 	"github.com/gofiber/fiber/v2"
-	"github.com/rs/cors"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {

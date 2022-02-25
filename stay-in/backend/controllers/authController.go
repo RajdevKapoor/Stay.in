@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"../database"
-	"../models"
+	"github.com/RajdevKapoor/Stay.in/database"
+	"github.com/RajdevKapoor/Stay.in/models"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"github.com/dgrijalva/jwt-go/v4"
