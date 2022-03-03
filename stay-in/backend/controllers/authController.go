@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"strconv"
-	"time"
 
 	"github.com/RajdevKapoor/Stay.in/database"
 	"github.com/RajdevKapoor/Stay.in/models"
@@ -20,10 +19,11 @@ func Register(c *fiber.Ctx) error {
 	}
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
 	user := models.User{
-		Email:    data["email"],
+		ID: 0,
+		Email: data["email"],
 		Password: password,
 	}
-	database.DB > Create(&user)
+	//database.DB > Create(&user)
 	return c.JSON(user)
 
 }
@@ -34,7 +34,7 @@ func Login(c *fiber.Ctx) error {
 	}
 	var user models.User
 	database.DB.Where("email=?", data["email"]).First(&user)
-	if user.Id == 0 {
+	if user.ID == 0 {
 		c.Status(fiber.StatusNotFound)
 		return c.JSON(fiber.Map{
 			"message": "user not found",
@@ -48,7 +48,7 @@ func Login(c *fiber.Ctx) error {
 	}
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Issuer:    strconv.Itoa(int(user.ID)),
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+		//ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 	})
 	token, err := claims.SignedString([]byte(SecretKey))
 	if err != nil {
@@ -60,7 +60,7 @@ func Login(c *fiber.Ctx) error {
 	cookie := fiber.Cookie{
 		Name:      "jwt",
 		Value:     token,
-		ExpiresAt: time.Now().Add(time.Hour * 24),
+		//ExpiresAt: time.Now().Add(time.Hour * 24),
 		HTTPOnly:  true,
 	}
 	c.Cookie(&cookie)
