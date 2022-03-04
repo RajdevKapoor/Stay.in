@@ -10,7 +10,7 @@ import millify from 'millify';
 
 import DefaultImage from '../assets/images/house.jpg';
 
-const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, baths, area, agency, isVerified, externalID  } }) => (
+const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, baths, area, agency, isVerified, externalID, purpose  } }) => (
   
   
   
@@ -50,6 +50,10 @@ const Property = ({ property: { coverPhoto, price, rentFrequency, rooms, title, 
 
         <Box>
         USD {price}{rentFrequency && `/${rentFrequency}`}
+          
+        </Box>
+        <Box color='blue.500'>
+        {purpose}
           
         </Box>
 
