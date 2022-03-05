@@ -1,0 +1,18 @@
+package main
+
+import (
+	"./database"
+	"./routes"
+	"github.com/gofiber/fiber/v2"
+	"github.com/rs/cors"
+)
+
+func main() {
+	database.Connect()
+
+	app := fiber.New()
+	app.Use(cors.New())
+	routes.Setup(app)
+
+	app.Listen(":8000")
+}
