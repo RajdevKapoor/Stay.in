@@ -7,7 +7,7 @@ import { BsFilter } from 'react-icons/bs';
 import Property from '../components/Property';
 import SearchFilters from '../components/SearchFilters';
 import { baseUrl, fetchApi } from '../utils/fetchApi';
-import noresult from '../assets/images/noresult.svg'
+//import noresult from '../assets/images/noresult.svg'
 
 const Search = ({ properties }) => {
   const [searchFilters, setSearchFilters] = useState(false);
@@ -61,7 +61,7 @@ export async function getServerSideProps({ query }) {
   const categoryExternalID = query.categoryExternalID || '4';
 
   const data = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`);
-
+console.log(data?.hits[0]);
   return {
     props: {
       properties: data?.hits,
