@@ -31,7 +31,8 @@
   GET /api/v1/stay
 ```
 
-[!image](https://user-images.githubusercontent.com/9784110/156868714-4db45c11-eb28-40be-ac94-d26c2dac2353.png)
+![image](https://user-images.githubusercontent.com/9784110/156868714-4db45c11-eb28-40be-ac94-d26c2dac2353.png)
+
 
 #### Get item
 
