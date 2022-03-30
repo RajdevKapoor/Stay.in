@@ -19,6 +19,9 @@ const Navbar = () => (
       <Menu>
         <MenuButton as={IconButton} icon={<FcMenu />} bgColor='#023' color='red.400' />
         <MenuList color={'black'} >
+        <Link href='Stay.in\stay-in\pages\propertUpload.html' passHref>
+            <MenuItem icon={<FcHome />}>List Your Property</MenuItem>
+          </Link>
           <Link href='/' passHref>
             <MenuItem icon={<FcHome />}>Home</MenuItem>
           </Link>
