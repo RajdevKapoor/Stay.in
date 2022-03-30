@@ -10,11 +10,13 @@ const Navbar = () => (
       <Link href='/' paddingLeft='2'>Stay.in</Link>
     </Box>
     <Spacer />
+
     <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
+           
     <Box>
       <Menu>
         <MenuButton as={IconButton} icon={<FcMenu />} bgColor='#023' color='red.400' />
@@ -61,6 +63,19 @@ const Navbar = () => (
               bg: 'blue.900',
             }}>
             Sign Up
+          </Button></Link>
+          <Link href='/form' passHref>
+          <Button
+            display={{ base: 'none', md: 'inline-flex' }}
+            fontSize={'sm'}
+            fontWeight={600}
+            color={'white'}
+            bg={'blue.500'}
+            href={'#'}
+            _hover={{
+              bg: 'blue.900',
+            }}>
+            List a Property!
           </Button></Link>
         </Stack>
   </Flex>
