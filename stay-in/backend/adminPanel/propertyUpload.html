@@ -1,0 +1,56 @@
+<html lang="en">
+	<head>
+		<title>Property Upload Form</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<form action="http://localhost:8000/api/v1/stay" method="post" id="propertyUpload">
+				<h1>Property Upload Form</h1>
+				<div class="field">
+					<label for="propertyName">Property Name:</label>
+					<input type="text" id="propertyName" name="propertyName"  required/>
+					<small></small>
+				</div>
+				<div class="field">
+					<label for="purpose">Purpose:</label>
+					<select id="purpose" name="purpose">
+						<option value="rent">For Rent</option>
+						<option value="sale">For Sale</option>
+					</select>
+					
+				</div>
+				<div class="field">
+					<label for="price">Price:</label>
+					<input type="number" id="price" name="price" min = "1" max = "9999999" required />
+					<small></small>
+				</div>
+                <div class="field">
+					<label for="title">Title:</label>
+					<input type="text" id="title" name="title" required />
+					<small></small>
+				</div>
+				<div class="field">
+					<label for="rooms">No. of Bedrooms:</label>
+					<input type="number" id="rooms" name="rooms" min = "1" max = "10" required />
+					<small></small>
+				</div>
+				<div class="field">
+					<label for="bath">No. of Bathrooms:</label>
+					<input type="number" id="bath" name="bath" min = "1" max = "10" required />
+					<small></small>
+				</div>
+				<div class="field">
+					<label for="price">Area:</label>
+					<input type="number" id="area" name="area" min = "1" max = "9999999" required />
+					<small></small>
+				</div>
+				<div class="field">
+					<button type="submit" class="full">Submit</button>
+				</div>
+			</form>
+		</div>
+		<script src="appU.js"></script>
+	</body>
+</html>
