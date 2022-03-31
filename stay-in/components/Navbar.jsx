@@ -97,7 +97,7 @@ const Navbar = () => (
             }}>
             Sign Up
           </Button></Link> */}
-      <Link href="/form" passHref>
+      <Link href="/propertyform" passHref>
         <Button
           display={{ base: 'none', md: 'inline-flex' }}
           fontSize={'sm'}
