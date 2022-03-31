@@ -46,8 +46,8 @@ func Deletestay(c *fiber.Ctx) {
 	var stay Stay
 	db.First(&stay, id)
 	if stay.Title == "" {
-        c.Status(500).Send("No stay Found with ID")
-        return
+		c.Status(500).Send("No stay Found with ID")
+		return
 	}
 	db.Delete(&stay)
 	c.Send("Book Successfully deleted")
