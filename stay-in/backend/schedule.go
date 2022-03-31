@@ -120,8 +120,10 @@ func (a *App) getClient(w http.ResponseWriter, r *http.Request) {
 	temp := r.URL.Query().Get("trackingID")
 	fmt.Println(temp)
 	var client ClientDetails
+
 	//err := a.DB.Find(&temp).Error
 	a.DB.Where("tracking_id = ?", temp).First(&client)
+
 	//fmt.Println(a.DB.Where("tracking_id = ?", temp).First(&ClientDetails{}))
 	fmt.Println(client.FirstName)
 
@@ -135,6 +137,8 @@ func (a *App) getClient(w http.ResponseWriter, r *http.Request) {
 	resp["appointment_date"] = client.AppointmentDate
 
 	jsonResp, err := json.Marshal(resp)
+
+	//Unit Test
 	if err != nil {
 		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
 	}
