@@ -12,11 +12,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>NextAuth Google Authentication</title>
+        <title>Stay.in | Admin Panel </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Google Authentication with NextAuth </h1>
+      <h1>Welcome to Stay.in Admin Panel</h1>
+      <h3>You can upload property using this panel</h3>
 
       {!session && (
         <>

@@ -42,13 +42,16 @@ func Login(c *fiber.Ctx) error {
 	var user models.User
 	database.DB.Where("email=?", data["email"]).First(&user)
 
+	// Test for User ID
 	if user.Id==0{
 		c.Status(fiber.StatusNotFound)
 		return c.JSON(fiber.Map{
 			"message":"user not found"
 		})
 	}
+    
 
+	//Unit Test Correct Password
 	if err := bcrypt.CompareHashAndPassword(user.Password, []byte(data["password"])); err!= nil{
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
@@ -61,6 +64,8 @@ func Login(c *fiber.Ctx) error {
 		ExpiresAt:time.Now().Add(time.Hour * 24).Unix(),
 	})
 
+
+	//Test for Possible Failed Login
 	token, err := claims.SignedString([]byte(SecretKey))
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
