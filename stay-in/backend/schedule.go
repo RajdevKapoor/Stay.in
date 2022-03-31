@@ -20,6 +20,7 @@ type App struct {
 	DB *gorm.DB
 }
 
+//Structure for Database
 type ClientDetails struct {
 	gorm.Model
 	AppointmentDate    string `json:"appointmentDate"`
@@ -35,6 +36,8 @@ type ClientDetails struct {
 
 func (a *App) Initialize(dbDriver string, dbURI string) {
 	db, err := gorm.Open(sqlite.Open(dbURI), &gorm.Config{})
+
+	//Test Connection to Database
 	if err != nil {
 		panic("failed to connect database")
 	}
@@ -90,6 +93,8 @@ func (a *App) CreateHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var s ClientDetails
 	err := json.NewDecoder(r.Body).Decode(&s)
+
+	//Bad Request Test
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
 		return
@@ -102,6 +107,8 @@ func (a *App) CreateHandler(w http.ResponseWriter, r *http.Request) {
 	resp["message"] = "Status Created"
 	resp["trackingID"] = s.TrackingID
 	jsonResp, err := json.Marshal(resp)
+
+	//Error Detection
 	if err != nil {
 		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
 	}
@@ -143,6 +150,8 @@ func sendErr(w http.ResponseWriter, code int, message string) {
 func main() {
 
 	a := &App{}
+
+	//Connection To Database
 	a.Initialize("sqlite", "ClientDetails.db")
 
 	r := mux.NewRouter()
