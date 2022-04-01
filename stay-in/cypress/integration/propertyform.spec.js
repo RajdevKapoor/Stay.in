@@ -73,7 +73,7 @@ context("Property Form", () => {
       .type(4)
       .should("have.value", 4)
 
-      .get('textarea[id="description"]')
+      .get('input[id="description"]')
       .type(llText)   
       .should("have.value", llText);
 
