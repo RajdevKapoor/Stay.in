@@ -20,6 +20,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import "../components/propertyForm/fileUpload";
 import PicturesWall from "../components/propertyForm/fileUpload";
 import HelloMessage from "../components/propertyForm/fileUpload";
+import ImageUpload from "../components/propertyForm/fileUpload";
 
 export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
@@ -153,6 +154,9 @@ export default function PropertyForm() {
 
 
                 {/* <HelloMessage /> */}
+                <Box>
+                <ImageUpload/> 
+                </Box>
 
 
               <Stack spacing={10} pt={2}>
