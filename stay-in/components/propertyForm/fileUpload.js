@@ -16,6 +16,28 @@ function getBase64(file) {
   });
 }
 
+
+//TODO:
+
+// router.post('/thumbnail-base64', async (req, res) => {
+//   try {
+//     const imageResponse = await axios({ url: req.body.url, responseType: 'arraybuffer' })
+//     const buffer = Buffer.from(imageResponse.data, 'binary')
+
+//     sharp(buffer).resize(50, 50).jpeg({ quality: 50 }).toBuffer().then(data => {
+//       const base64Img = `data:image/jpeg;base64,` + data.toString('base64')
+//       res.status(200)
+//         .send({ base64Img });
+//     });
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).send({ "Error": "Something went wrong at the server!" })
+//   }
+// })
+
+
+
+
 class PicturesWall extends Component {
   state = {
     previewVisible: false,
@@ -34,18 +56,7 @@ class PicturesWall extends Component {
         status: "done",
         url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
       },
-      {
-        uid: "-3",
-        name: "image.png",
-        status: "done",
-        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-4",
-        name: "image.png",
-        status: "done",
-        url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
+      
       {
         uid: "-xxx",
         percent: 50,
@@ -94,6 +105,7 @@ class PicturesWall extends Component {
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          className="Upload-Ant"
         >
           {fileList.length >= 8 ? null : uploadButton}
         </Upload>
@@ -114,7 +126,8 @@ class ImageUpload extends React.Component {
 
     render() {
       return (
-        <div className="imgbb">
+        // <div className="imgbb" style={{display:"grid !important" , gridTemplateColumns: "auto auto auto !important"}}>
+        <div className="imgbb" style={{display:"flex" , flexDirection:"column"}}>
           <PicturesWall />
         </div>
       );
