@@ -19,6 +19,8 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import "../components/propertyForm/fileUpload";
 import PicturesWall from "../components/propertyForm/fileUpload";
+import HelloMessage from "../components/propertyForm/fileUpload";
+import ImageUpload from "../components/propertyForm/fileUpload";
 
 export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
@@ -44,14 +46,17 @@ export default function PropertyForm() {
         " " +
         event.target.email.value +
         " " +
-        event.target.propertyName.value+
+        event.target.propertyName.value +
         " " +
-        event.target.description.value
+        event.target.description.value +
+        " " +
+        event.target.monthlyRent.value +
+        " " +
+        event.target.bed.value +
+        " " +
+        event.target.bath.value
+
     );
-
-    //TODO: Pass above values in API
-
-    // result.user => 'Ada Lovelace'
   };
 
   return (
@@ -89,23 +94,53 @@ export default function PropertyForm() {
                     <Input type="text" />
                   </FormControl>
                 </Box>
+
                 <Box>
-                  <FormControl id="lastName">
+                  <FormControl id="lastName" isRequired>
                     <FormLabel>Last Name</FormLabel>
                     <Input type="text" />
                   </FormControl>
                 </Box>
               </HStack>
+
+
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
+
+
               <FormControl id="propertyName" isRequired>
                 <FormLabel>Property Name</FormLabel>
                 <InputGroup>
                   <Input type="text" />
                 </InputGroup>
               </FormControl>
+
+              <HStack>
+                <Box>
+                  <FormControl id="monthlyRent" isRequired>
+                    <FormLabel>Monthly Rent</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <FormControl id="bed" isRequired>
+                    <FormLabel>Bed</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <FormControl id="bath" isRequired>
+                    <FormLabel>Bath</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+              </HStack>
+
+
               <FormControl id="description" isRequired>
                 <FormLabel>Property Description</FormLabel>
 
@@ -116,6 +151,13 @@ export default function PropertyForm() {
               </InputGroup> */}
                 <Textarea type="textarea" />
               </FormControl>
+
+
+                {/* <HelloMessage /> */}
+                <Box>
+                <ImageUpload/> 
+                </Box>
+
 
               <Stack spacing={10} pt={2}>
                 <Button
