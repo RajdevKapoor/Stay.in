@@ -16,6 +16,28 @@ function getBase64(file) {
   });
 }
 
+
+//TODO:
+
+// router.post('/thumbnail-base64', async (req, res) => {
+//   try {
+//     const imageResponse = await axios({ url: req.body.url, responseType: 'arraybuffer' })
+//     const buffer = Buffer.from(imageResponse.data, 'binary')
+
+//     sharp(buffer).resize(50, 50).jpeg({ quality: 50 }).toBuffer().then(data => {
+//       const base64Img = `data:image/jpeg;base64,` + data.toString('base64')
+//       res.status(200)
+//         .send({ base64Img });
+//     });
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).send({ "Error": "Something went wrong at the server!" })
+//   }
+// })
+
+
+
+
 class PicturesWall extends Component {
   state = {
     previewVisible: false,
