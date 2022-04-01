@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Component } from 'react';
+
 
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -13,7 +16,7 @@ function getBase64(file) {
   });
 }
 
-class PicturesWall extends React.Component {
+class PicturesWall extends Component {
   state = {
     previewVisible: false,
     previewImage: "",
@@ -106,4 +109,17 @@ class PicturesWall extends React.Component {
     );
   }
 }
-export default PicturesWall;
+
+class ImageUpload extends React.Component {
+
+    render() {
+      return (
+        <div className="imgbb">
+          <PicturesWall />
+        </div>
+      );
+    }
+  }
+  
+export default ImageUpload;
+
