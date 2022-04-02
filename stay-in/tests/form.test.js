@@ -47,30 +47,30 @@ test(()=>{
 describe(PropertyForm(), () => {
  
     test('render email input', () => {
-      render(<App />);
+      render(PropertyForm());
    
-      const inputEl = screen.getByTestId("email-input");
+      const inputEl = screen.getByTestId("email");
       expect(inputEl).toBeInTheDocument();
       expect(inputEl).toHaveAttribute("type", "email");
     });
    
     test('pass valid email to test email input field', () => {
-      render(<App />);
+      render(PropertyForm());
    
-      const inputEl = screen.getByTestId("email-input");
+      const inputEl = screen.getByTestId("email");
       userEvent.type(inputEl, "test@mail.com");
    
-      expect(screen.getByTestId("email-input")).toHaveValue("test@mail.com");
+      expect(screen.getByTestId("email")).toHaveValue("test@mail.com");
       expect(screen.queryByTestId("error-msg")).not.toBeInTheDocument();
     });
    
     test('pass invalid email to test input value', () => {
-      render(<App />);
+      render(PropertyForm());
    
-      const inputEl = screen.getByTestId("email-input");
+      const inputEl = screen.getByTestId("email");
       userEvent.type(inputEl, "test");
    
-      expect(screen.getByTestId("email-input")).toHaveValue("test");
+      expect(screen.getByTestId("email")).toHaveValue("test");
       expect(screen.queryByTestId("error-msg")).toBeInTheDocument();
       expect(screen.queryByTestId("error-msg").textContent).toEqual("Please enter a valid email.");
     });
