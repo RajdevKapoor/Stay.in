@@ -25,4 +25,14 @@ Pages:
 - `/search?purpose=for-rent`: Search apartments specifically for rent
 - `/propertyform`: Form to list your properties for sale/rent
 
+Website Demos:
+
+
+https://user-images.githubusercontent.com/43610780/161365337-68f5bb80-6a98-406a-9007-963473a02963.mp4
+
+
 Testing Demo:
+
+
+https://user-images.githubusercontent.com/43610780/161365186-b1a0b0ab-efd7-4241-afd4-8131987d86f0.mov
+
