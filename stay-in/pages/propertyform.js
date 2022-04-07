@@ -14,6 +14,8 @@ import {
   Textarea,
   useColorModeValue,
   Link,
+  toast,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -21,11 +23,18 @@ import "../components/propertyForm/fileUpload";
 import PicturesWall from "../components/propertyForm/fileUpload";
 import HelloMessage from "../components/propertyForm/fileUpload";
 import ImageUpload from "../components/propertyForm/fileUpload";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+
 
 export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
 
-  const registerUser = async (event) => {
+  const toast = useToast();
+  const router = useRouter();
+
+  const submitForm = async (event) => {
     event.preventDefault();
     // const res = await fetch('/api/register', {
     //   body: JSON.stringify({
@@ -57,7 +66,24 @@ export default function PropertyForm() {
         event.target.bath.value
 
     );
+
+   
+    router.replace("/").then(()=>{
+      toast({
+        title: `Form Submitted!`,
+        status: 'success',
+        isClosable: true,
+      })
+    });
+    
+    
   };
+
+
+  
+    
+ 
+  
 
   return (
     <Flex
@@ -70,10 +96,10 @@ export default function PropertyForm() {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
+          <Heading fontSize={"4xl"} textAlign={"center"} className="main-text">
             List Your Property!
           </Heading>
-          <Text fontSize={"lg"} color={"whiteAplha.900"}>
+          <Text fontSize={"lg"} color={"whiteAplha.900"} className="sub-text">
             Fill these details to add your property
           </Text>
         </Stack>
@@ -84,7 +110,7 @@ export default function PropertyForm() {
           color={"black"}
           p={8}
         >
-          <form onSubmit={registerUser}>
+          <form onSubmit={submitForm}>
             {" "}
             <Stack spacing={4}>
               <HStack>
@@ -144,19 +170,19 @@ export default function PropertyForm() {
               <FormControl id="description" isRequired>
                 <FormLabel>Property Description</FormLabel>
 
-                {/* <InputGroup >
+                <InputGroup >
                
-                <Input type='text' />
+                <Input type='text' css={{height:100}}/>
                 
-              </InputGroup> */}
-                <Textarea type="textarea" />
+              </InputGroup>
+              {/* <Textarea type="textarea" id="autosize" /> */}
+                
               </FormControl>
 
 
-                {/* <HelloMessage /> */}
-                <Box>
+                {/* <Box>
                 <ImageUpload/> 
-                </Box>
+                </Box> */}
 
 
               <Stack spacing={10} pt={2}>
