@@ -27,6 +27,22 @@ func Register(c *fiber.Ctx) error {
 	return c.JSON(user)
 
 }
+
+func addProperty(c *fiber.Ctx) error {
+	var data map[string]string
+	if err := c.BodyParser(&data); err != nil {
+		return err
+	}
+	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
+	user := models.User{
+		ID: 0,
+		Email: data["email"],
+		Password: password,
+	}
+	//database.DB > Create(&user)
+	return c.JSON(user)
+
+}
 func Login(c *fiber.Ctx) error {
 	var data map[string]string
 	if err := c.BodyParser(&data); err != nil {
