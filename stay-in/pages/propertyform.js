@@ -45,7 +45,9 @@ export default function PropertyForm() {
         description: event.target.description.value,
         monthlyRent: event.target.monthlyRent.value,
         bedNumber: event.target.bed.value,
-        bathNumber: event.target.bath.value
+        bathNumber: event.target.bath.value,
+        latitude: event.target.lat.value,
+        longitude: event.target.long.value,
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -70,7 +72,11 @@ export default function PropertyForm() {
     //     " " +
     //     event.target.bed.value +
     //     " " +
-    //     event.target.bath.value
+    //     event.target.bath.value +
+    //     " " +
+    //     event.target.lat.value +
+    //     " " +
+    //     event.target.long.value
 
     // );
     // console.log(res);
@@ -192,7 +198,18 @@ export default function PropertyForm() {
                 <ImageUpload/> 
                 </Box> */}
 
-
+<Box>
+                  <FormControl id="lat" isRequired>
+                    <FormLabel>Latitude</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+                <Box>
+                  <FormControl id="long" isRequired>
+                    <FormLabel>Longitude</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
               <Stack spacing={10} pt={2}>
                 <Button
                   type="Submit"
