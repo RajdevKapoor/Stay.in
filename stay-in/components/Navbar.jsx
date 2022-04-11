@@ -84,6 +84,19 @@ const Navbar = () => (
           Sign In
         </Button>
       </Link>
+
+      <Link href="/auth" passHref>
+        <Button
+          as={'a'}
+          color={'white'}
+          fontSize={'sm'}
+          fontWeight={400}
+          variant={'link'}
+          href={'#'}
+        >
+          Google+
+        </Button>
+      </Link>
       {/* <Link href='/signup' passHref>
           <Button
             display={{ base: 'none', md: 'inline-flex' }}
