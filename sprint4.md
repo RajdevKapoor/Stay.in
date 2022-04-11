@@ -5,6 +5,7 @@
 - Added Property Upload 
 - Added Cypress Testing 
 - Added Unit Tests
+- Chat Feature
 
 ## How to run the project
 
