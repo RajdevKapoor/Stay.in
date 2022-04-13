@@ -7,33 +7,35 @@ import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
+// function getBase64(file) {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => resolve(reader.result);
+//     reader.onerror = (error) => reject(error);
+//   });
+// }
 
 
 //TODO:
+function base64AndPost(img)
+router.post('/thumbnail-base64', async (req, res) => {
+  try {
+    //const imageResponse = await axios({ url: req.body.url, responseType: 'arraybuffer' })
+    const reader = new FileReader();
 
-// router.post('/thumbnail-base64', async (req, res) => {
-//   try {
-//     const imageResponse = await axios({ url: req.body.url, responseType: 'arraybuffer' })
-//     const buffer = Buffer.from(imageResponse.data, 'binary')
+    const buffer = Buffer.from(reader.readAsDataURL(img), 'binary')
 
-//     sharp(buffer).resize(50, 50).jpeg({ quality: 50 }).toBuffer().then(data => {
-//       const base64Img = `data:image/jpeg;base64,` + data.toString('base64')
-//       res.status(200)
-//         .send({ base64Img });
-//     });
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).send({ "Error": "Something went wrong at the server!" })
-//   }
-// })
+    sharp(buffer).resize(50, 50).jpeg({ quality: 50 }).toBuffer().then(data => {
+      const base64Img = `data:image/jpeg;base64,` + data.toString('base64')
+      res.status(200)
+        .send({ base64Img });
+    });
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ "Error": "Something went wrong at the server!" })
+  }
+})
 
 
 
@@ -76,7 +78,8 @@ class PicturesWall extends Component {
 
   handlePreview = async (file) => {
     if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
+      // file.preview = await getBase64(file.originFileObj);
+      file.preview = await base64AndPost(file.originFileObj)
     }
 
     this.setState({
