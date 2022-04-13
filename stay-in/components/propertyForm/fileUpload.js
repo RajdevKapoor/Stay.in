@@ -56,7 +56,7 @@ class PicturesWall extends Component {
         status: "done",
         url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
       },
-      
+
       {
         uid: "-xxx",
         percent: 50,
@@ -124,15 +124,15 @@ class PicturesWall extends Component {
 
 class ImageUpload extends React.Component {
 
-    render() {
-      return (
-        // <div className="imgbb" style={{display:"grid !important" , gridTemplateColumns: "auto auto auto !important"}}>
-        <div className="imgbb" style={{display:"flex" , flexDirection:"column"}}>
-          <PicturesWall />
-        </div>
-      );
-    }
+  render() {
+    return (
+      // <div className="imgbb" style={{display:"grid !important" , gridTemplateColumns: "auto auto auto !important"}}>
+      <div className="imgbb" style={{ display: "flex", flexDirection: "column" }}>
+        <PicturesWall />
+      </div>
+    );
   }
-  
+}
+
 export default ImageUpload;
 
