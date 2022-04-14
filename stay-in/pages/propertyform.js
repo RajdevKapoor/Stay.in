@@ -26,13 +26,24 @@ import ImageUpload from "../components/propertyForm/fileUpload";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function PropertyForm() {
+// export default function PropertyForm() {
+  export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
 
   const toast = useToast();
   const router = useRouter();
 
+  const getUserLocation =  async ()=>{
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+  }
+
   const submitForm = async (event) => {
+
+    // getUserLocation();
+
     event.preventDefault();
     const res = await fetch("/api/addProperty", {
       body: JSON.stringify({
@@ -102,6 +113,7 @@ export default function PropertyForm() {
           <Heading fontSize={"4xl"} textAlign={"center"} className="main-text">
             List Your Property!
           </Heading>
+          {/* <Button onClick={getUserLocation}>Location</Button> */}
           <Text fontSize={"lg"} color={"whiteAplha.900"} className="sub-text">
             Fill these details to add your property
           </Text>
@@ -167,6 +179,26 @@ export default function PropertyForm() {
                 </Box>
               </HStack>
 
+              <HStack>
+                <Box>
+                  <FormControl id="latitude" isRequired>
+                    <FormLabel>Latitude</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <FormControl id="longitude" isRequired>
+                    <FormLabel>Longitude</FormLabel>
+                    <Input type="number" />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <Button onClick={getUserLocation}>Get Location</Button>
+                </Box>
+              </HStack>
+
               <FormControl id="description" isRequired>
                 <FormLabel>Property Description</FormLabel>
 
@@ -176,9 +208,9 @@ export default function PropertyForm() {
                 {/* <Textarea type="textarea" id="autosize" /> */}
               </FormControl>
 
-              <Box>
+              {/* <Box>
                 <ImageUpload/> 
-                </Box>
+                </Box> */}
 
               <Box>
                 <FormControl id="lat" isRequired>
