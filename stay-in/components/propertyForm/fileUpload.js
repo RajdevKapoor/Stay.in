@@ -18,7 +18,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 
 //TODO:
-function base64AndPost(img)
+function base64AndPost(img){
 router.post('/thumbnail-base64', async (req, res) => {
   try {
     //const imageResponse = await axios({ url: req.body.url, responseType: 'arraybuffer' })
@@ -36,7 +36,7 @@ router.post('/thumbnail-base64', async (req, res) => {
     res.status(500).send({ "Error": "Something went wrong at the server!" })
   }
 })
-
+}
 
 
 
