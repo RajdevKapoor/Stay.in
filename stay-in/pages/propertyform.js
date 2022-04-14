@@ -23,25 +23,34 @@ import "../components/propertyForm/fileUpload";
 import PicturesWall from "../components/propertyForm/fileUpload";
 import HelloMessage from "../components/propertyForm/fileUpload";
 import ImageUpload from "../components/propertyForm/fileUpload";
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-
-
-export default function PropertyForm() {
+// export default function PropertyForm() {
+  export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
 
   const toast = useToast();
   const router = useRouter();
 
+  const getUserLocation =  async ()=>{
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+  }
+
   const submitForm = async (event) => {
+
+    // getUserLocation();
+
     event.preventDefault();
-    const res = await fetch('/api/addProperty', {
+    const res = await fetch("/api/addProperty", {
       body: JSON.stringify({
         firstName: event.target.firstName.value,
         lastName: event.target.lastName.value,
-       email: event.target.email.value,
-  propertyName: event.target.propertyName.value,
+        email: event.target.email.value,
+        propertyName: event.target.propertyName.value,
         description: event.target.description.value,
         monthlyRent: event.target.monthlyRent.value,
         bedNumber: event.target.bed.value,
@@ -50,12 +59,12 @@ export default function PropertyForm() {
         longitude: event.target.long.value,
       }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      method: 'POST'
-    })
+      method: "POST",
+    });
 
-    const result = await res.json()
+    const result = await res.json();
 
     // console.log(
     //   event.target.firstName.value +
@@ -81,23 +90,14 @@ export default function PropertyForm() {
     // );
     // console.log(res);
 
-   
-    router.replace("/").then(()=>{
+    router.replace("/").then(() => {
       toast({
         title: `Form Submitted!`,
-        status: 'success',
+        status: "success",
         isClosable: true,
-      })
+      });
     });
-    
-    
   };
-
-
-  
-    
- 
-  
 
   return (
     <Flex
@@ -113,6 +113,7 @@ export default function PropertyForm() {
           <Heading fontSize={"4xl"} textAlign={"center"} className="main-text">
             List Your Property!
           </Heading>
+          {/* <Button onClick={getUserLocation}>Location</Button> */}
           <Text fontSize={"lg"} color={"whiteAplha.900"} className="sub-text">
             Fill these details to add your property
           </Text>
@@ -143,12 +144,10 @@ export default function PropertyForm() {
                 </Box>
               </HStack>
 
-
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
-
 
               <FormControl id="propertyName" isRequired>
                 <FormLabel>Property Name</FormLabel>
@@ -180,36 +179,51 @@ export default function PropertyForm() {
                 </Box>
               </HStack>
 
-
-              <FormControl id="description" isRequired>
-                <FormLabel>Property Description</FormLabel>
-
-                <InputGroup >
-               
-                <Input type='text' css={{height:100}}/>
-                
-              </InputGroup>
-              {/* <Textarea type="textarea" id="autosize" /> */}
-                
-              </FormControl>
-
-
-                {/* <Box>
-                <ImageUpload/> 
-                </Box> */}
-
-<Box>
-                  <FormControl id="lat" isRequired>
+              <HStack>
+                <Box>
+                  <FormControl id="latitude" isRequired>
                     <FormLabel>Latitude</FormLabel>
                     <Input type="number" />
                   </FormControl>
                 </Box>
+
                 <Box>
-                  <FormControl id="long" isRequired>
+                  <FormControl id="longitude" isRequired>
                     <FormLabel>Longitude</FormLabel>
                     <Input type="number" />
                   </FormControl>
                 </Box>
+
+                <Box>
+                  <Button onClick={getUserLocation}>Get Location</Button>
+                </Box>
+              </HStack>
+
+              <FormControl id="description" isRequired>
+                <FormLabel>Property Description</FormLabel>
+
+                <InputGroup>
+                  <Input type="text" css={{ height: 100 }} />
+                </InputGroup>
+                {/* <Textarea type="textarea" id="autosize" /> */}
+              </FormControl>
+
+              {/* <Box>
+                <ImageUpload/> 
+                </Box> */}
+
+              <Box>
+                <FormControl id="lat" isRequired>
+                  <FormLabel>Latitude</FormLabel>
+                  <Input type="number" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="long" isRequired>
+                  <FormLabel>Longitude</FormLabel>
+                  <Input type="number" />
+                </FormControl>
+              </Box>
               <Stack spacing={10} pt={2}>
                 <Button
                   type="Submit"
