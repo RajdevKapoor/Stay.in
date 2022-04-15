@@ -10,5 +10,6 @@ func Setup(app *fiber.App) {
 	app.Post("/api/login", controllers.Login)
 	app.Get("/api/user", controllers.User)
 	app.Post("/api/addProperty", controllers.Register)
+	app.Post("/api/messages", controllers.sendMessage)
 	
 }
