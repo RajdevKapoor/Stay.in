@@ -16,6 +16,7 @@ import {
   Link,
   toast,
   useToast,
+  Spinner
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -27,21 +28,34 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 // export default function PropertyForm() {
-  export default function PropertyForm() {
+export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
 
+  const [longitude, setLongitude] = useState(0.0);
+  const [latitude, setLatitude] = useState(0.0);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
-  const getUserLocation =  async ()=>{
-    navigator.geolocation.getCurrentPosition(function(position) {
+  const getUserLocation =  () => {
+    setIsLoading(true);
+
+    
+     navigator.geolocation.getCurrentPosition(function async (position) {
+      setLongitude(position.coords.longitude);
+      setLatitude(position.coords.latitude);
+
+      setIsLoading(false);
+
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
     });
-  }
+
+    // setTimeout(()=>{}, 3000);
+
+  };
 
   const submitForm = async (event) => {
-
     // getUserLocation();
 
     event.preventDefault();
@@ -183,20 +197,26 @@ import { useRouter } from "next/router";
                 <Box>
                   <FormControl id="latitude" isRequired>
                     <FormLabel>Latitude</FormLabel>
-                    <Input type="number" />
+                    <Input type="number" value={latitude} />
                   </FormControl>
                 </Box>
 
                 <Box>
                   <FormControl id="longitude" isRequired>
                     <FormLabel>Longitude</FormLabel>
-                    <Input type="number" />
+                    <Input type="number" value={longitude} />
                   </FormControl>
                 </Box>
 
                 <Box>
-                  <Button onClick={getUserLocation}>Get Location</Button>
+                  <Button onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
                 </Box>
+              </HStack>
+
+              <HStack>
+                {isLoading && (
+                  <Spinner/>
+                )}
               </HStack>
 
               <FormControl id="description" isRequired>
@@ -212,18 +232,6 @@ import { useRouter } from "next/router";
                 <ImageUpload/> 
                 </Box> */}
 
-              <Box>
-                <FormControl id="lat" isRequired>
-                  <FormLabel>Latitude</FormLabel>
-                  <Input type="number" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="long" isRequired>
-                  <FormLabel>Longitude</FormLabel>
-                  <Input type="number" />
-                </FormControl>
-              </Box>
               <Stack spacing={10} pt={2}>
                 <Button
                   type="Submit"
