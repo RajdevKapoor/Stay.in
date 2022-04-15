@@ -106,7 +106,7 @@ export default function PropertyForm() {
 
     router.replace("/").then(() => {
       toast({
-        title: `Form Submitted!`,
+        title: `Form Submitted for Review!`,
         status: "success",
         isClosable: true,
       });
