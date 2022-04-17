@@ -33,6 +33,7 @@ type ClientDetails struct {
 	LastName           string `json:"lastName"`
 }
 
+//Test for database Connection
 func (a *App) Initialize(dbDriver string, dbURI string) {
 	db, err := gorm.Open(sqlite.Open(dbURI), &gorm.Config{})
 	if err != nil {
@@ -143,7 +144,7 @@ func sendErr(w http.ResponseWriter, code int, message string) {
 }
 
 func main() {
-
+	//Database Connection
 	a := &App{}
 	a.Initialize("sqlite", "ClientDetails.db")
 
