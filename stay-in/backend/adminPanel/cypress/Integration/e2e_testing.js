@@ -647,4 +647,354 @@ describe('Browser notifications', () => {
 })
 
 
+/// <reference types="cypress" />
+
+/* eslint-disable no-console */
+describe('App error', () => {
+  // NOTE: run this test to see it fail on application error
+  it.skip('fails the Cypress test', () => {
+    cy.visit('index.html')
+    cy.get('button#error').click()
+    // the error happens after 1000ms
+    cy.wait(1500)
+  })
+
+  it('can be ignored', () => {
+    /**
+     * By using "cy.on()" we can ignore an exception in the current test only.
+     * If you want to register exception handler for all tests using "Cypress.on()"
+     * @see https://on.cypress.io/catalog-of-events
+     * @param {Error} e The exception we caught
+     * @param {Mocha.Runnable} runnable is the current test or hook during which the error is caught
+     */
+    cy.on('uncaught:exception', (e, runnable) => {
+      console.log('error', e)
+      console.log('runnable', runnable)
+
+      // we can simply return false to avoid failing the test on uncaught error
+      // return false
+      // but a better strategy is to make sure the error is expected
+      if (e.message.includes('Things went bad')) {
+        // we expected this error, so let's ignore it
+        // and let the test continue
+        return false
+      }
+      // on any other error message the test fails
+    })
+
+    cy.visit('index.html')
+    cy.get('button#error').click()
+    // the error happens after 1000ms
+    // we can use hard-coded wait, see the other test
+    // to learn how to avoid an unnecessary wait
+    cy.wait(1500)
+  })
+
+  // if the test finishes before the error is thrown -
+  // the test is still passing!
+  // NOTE: just a demo of the test that does not wait for an error
+  it.skip('does not wait for the error', () => {
+    cy.visit('index.html')
+    cy.get('button#error').click()
+    // the thrown error is "lost" because the test finishes
+  })
+
+  // we can avoid hard-coded waits in the test
+  // by using Cypress retry-ability
+  // https://on.cypress.io/retry-ability
+  it('waits for the error', () => {
+    // place any caught errors in this object
+    const caught = {
+      message: null,
+    }
+
+    cy.on('uncaught:exception', (e) => {
+      caught.message = e.message
+
+      // ignore the error
+      return false
+    })
+
+    cy.visit('index.html')
+    cy.get('button#error').click()
+
+    // waits for the error and confirms the message
+    cy.wrap(caught).should((c) => {
+      expect(c.message).to.include('Things went bad')
+    })
+  })
+})
+
+/// <reference types="cypress" />
+
+/* eslint-disable no-console */
+describe('Unhandled promises', () => {
+  // NOTE: this test fails in Cypress 7.0+
+  it.skip('fail the Cypress test', () => {
+    cy.visit('index.html')
+    cy.get('button#promise').click()
+    // the unhandled promise happens after 1000ms
+    cy.wait(1500)
+  })
+
+  it('handles the promise rejection', () => {
+    // place any caught errors in this object
+    const caught = {
+      message: null,
+    }
+
+    cy.on('uncaught:exception', (e, runnable, promise) => {
+      caught.message = e.message
+
+      return false
+    })
+
+    cy.visit('index.html')
+
+    cy.get('button#promise').click()
+    // waits for the error and confirms the message
+    cy.wrap(caught).should((c) => {
+      expect(c.message).to.include('Did not handle this promise')
+    })
+  })
+})
+
+
+/// <reference types="cypress" />
+
+/* eslint-env browser */
+/* eslint-disable no-console */
+describe('Unhandled promises in the test code', () => {
+  // NOTE: this test will pass in Cypress < 7.0 and fail in Cypress 7.0+
+  it.skip('does not affect the Cypress test', () => {
+    Cypress.Promise.delay(1000).then(() => {
+      throw new Error('Test code has a rejected promise')
+    })
+
+    cy.visit('index.html')
+    // because the promise will be rejected after one second
+    // wait inside the test
+    cy.wait(1100)
+  })
+
+  // NOTE: the test fails because we catch the unhandled promise rejection
+  it.skip('fails test on unhandled rejection in the test code that uses Cypress.Promise', () => {
+    // Cypress promises are Bluebird promises
+    // https://on.cypress.io/promise
+    // and have a callback for unhandled rejections
+    // it will catch any rejected promises created using Cypress.Promise
+    Cypress.Promise.onPossiblyUnhandledRejection((error, promise) => {
+      throw error
+    })
+
+    Cypress.Promise.delay(1000).then(() => {
+      throw new Error('Test code has a rejected promise')
+    })
+
+    cy.visit('index.html')
+    // because the promise will be rejected after one second
+    // wait inside the test
+    cy.wait(1100)
+  })
+
+  // NOTE: the test fails because we catch the unhandled promise rejection
+  it.skip('fails test on unhandled rejection in the test code that uses built-in Promise', () => {
+    // note: since we are registering this event listener
+    // on the spec's window and not on the application's window
+    // Cypress does NOT reset it after every test
+    window.addEventListener('unhandledrejection', (event) => {
+      throw event.reason
+    })
+
+    // use the built-in browser promises,
+    // reject it after one second
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error('Rejected native promise'))
+      }, 1000)
+    })
+
+    cy.visit('index.html')
+    // because the promise will be rejected after one second
+    // wait inside the test
+    cy.wait(1100)
+  })
+})
+
+/// <reference types="cypress" />
+const allUsers = require('../fixtures/users.json')
+// you can even require another JavaScript file
+// and use whatever was exported there
+const { names } = require('../fixtures/names')
+
+// sanity check
+expect(names, 'list of names').to.be.an('array')
+
+describe('array fixture', () => {
+  it('iterates over a list', () => {
+    cy.fixture('users').then((users) => {
+      expect(users).to.be.an('array').and.to.have.have.length(3)
+
+      users.forEach((user) => {
+        expect(user).to.have.keys(['name', 'age'])
+        expect(user.age).to.be.a('number').and.be.gt(10).and.be.lt(100)
+      })
+    })
+  })
+
+  // we can dynamically create tests from a static JSON list
+  // that we have loaded using "require" or "import" statement
+  // for more examples, see "Dynamic tests" recipes
+  allUsers.forEach((user) => {
+    it(`has user ${user.name}`, () => {
+      cy.wrap(user).should('have.property', 'name', user.name)
+      cy.wrap(user).should('have.property', 'age', user.age)
+    })
+  })
+
+  context('imported names', () => {
+    // create a test for each name
+    names.forEach((name) => {
+      it(`"${name}" has first and last name`, () => {
+        expect(name).to.match(/^\w+ \w+$/)
+      })
+    })
+  })
+})
+
+/// <reference types="cypress" />
+describe('Loading multiple fixtures', () => {
+  context('before each test using closure variables', () => {
+    let city
+    let country
+
+    beforeEach(() => {
+      cy.fixture('city').then((c) => {
+        city = c
+      })
+
+      cy.fixture('country').then((c) => {
+        country = c
+      })
+    })
+
+    it('has loaded fixtures', () => {
+      expect({ city, country }).to.deep.equal({
+        city: { name: 'Atlanta' },
+        country: { name: 'United States' },
+      })
+    })
+
+    it('still has fixtures in the second test', () => {
+      expect({ city, country }).to.deep.equal({
+        city: { name: 'Atlanta' },
+        country: { name: 'United States' },
+      })
+    })
+  })
+
+  context('once before all tests', () => {
+    let city
+    let country
+
+    before(() => {
+      // load fixtures once before any tests
+      // and they are kept in closure variables
+      cy.fixture('city').then((c) => {
+        city = c
+      })
+
+      cy.fixture('country').then((c) => {
+        country = c
+      })
+    })
+
+    it('has loaded fixtures', () => {
+      expect({ city, country }).to.deep.equal({
+        city: { name: 'Atlanta' },
+        country: { name: 'United States' },
+      })
+    })
+
+    it('still has loaded fixtures', () => {
+      // we have loaded the fixtures and stored them
+      // in the two variables and they should remain there
+      expect({ city, country }).to.deep.equal({
+        city: { name: 'Atlanta' },
+        country: { name: 'United States' },
+      })
+    })
+  })
+
+  context('using Mocha context', () => {
+    // notice how "beforeEach" callback uses "function"
+    // form to make sure Mocha context points correctly at "this"
+    beforeEach(function () {
+      cy.fixture('city').then((c) => {
+        this.city = c
+      })
+
+      cy.fixture('country').then((c) => {
+        this.country = c
+      })
+    })
+
+    it('has loaded fixtures', function () {
+      // again, the test has to use "function" callback
+      // to make sure "this" points at the Mocha context
+      expect(this.city).to.deep.equal({ name: 'Atlanta' })
+      expect(this.country).to.deep.equal({ name: 'United States' })
+    })
+  })
+
+  context('using @ as shortcut to the Mocha context', () => {
+    beforeEach(() => {
+      // we can ask Cypress to save the loaded fixture
+      // in the Mocha context using "cy.as" command
+      // in this case, the callback can be "function" or "=>" expression
+      cy.fixture('city').as('city')
+      cy.fixture('country').as('country')
+    })
+
+    it('has loaded fixtures', function () {
+      // again, the test has to use "function" callback
+      // to make sure "this" points at the Mocha context
+      expect(this.city).to.deep.equal({ name: 'Atlanta' })
+      expect(this.country).to.deep.equal({ name: 'United States' })
+    })
+  })
+
+  context('loading once and using @', () => {
+    let city
+    let country
+
+    before(() => {
+      // load fixtures just once, need to store in
+      // closure variables because Mocha context is cleared
+      // before each test
+      cy.fixture('city').then((c) => {
+        city = c
+      })
+
+      cy.fixture('country').then((c) => {
+        country = c
+      })
+    })
+
+    beforeEach(() => {
+      // we can put data back into the empty Mocha context before each test
+      // by the time this callback executes, "before" hook has finished
+      cy.wrap(city).as('city')
+      cy.wrap(country).as('country')
+    })
+
+    it('has loaded fixtures', function () {
+      // again, the test has to use "function" callback
+      // to make sure "this" points at the Mocha context
+      expect(this.city).to.deep.equal({ name: 'Atlanta' })
+      expect(this.country).to.deep.equal({ name: 'United States' })
+    })
+  })
+})
+
 
