@@ -645,3 +645,6 @@ describe('Browser notifications', () => {
     .and('have.been.calledWithNew')
   })
 })
+
+
+
