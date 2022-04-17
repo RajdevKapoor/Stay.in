@@ -12,7 +12,20 @@ func main() {
 
 	app := fiber.New()
 	app.Use(cors.New())
+
+	pusherClient := pusher.Client{
+		AppID:   "1382233",
+		Key:     "6448edf1a6faa7f3aaa6",
+		Secret:  "b692dfb1814d55c47836",
+		Cluster: "us2",
+		Secure:  true,
+	}
+
+	
 	routes.Setup(app)
+
+	
+	
 
 	app.Listen(":8000")
 }

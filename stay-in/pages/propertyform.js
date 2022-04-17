@@ -16,6 +16,7 @@ import {
   Link,
   toast,
   useToast,
+  Spinner
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -23,67 +24,94 @@ import "../components/propertyForm/fileUpload";
 import PicturesWall from "../components/propertyForm/fileUpload";
 import HelloMessage from "../components/propertyForm/fileUpload";
 import ImageUpload from "../components/propertyForm/fileUpload";
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-
-
+// export default function PropertyForm() {
 export default function PropertyForm() {
   //const [showPassword, setShowPassword] = useState(false);
 
+  const [longitude, setLongitude] = useState(0.0);
+  const [latitude, setLatitude] = useState(0.0);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
-  const submitForm = async (event) => {
-    event.preventDefault();
-    // const res = await fetch('/api/register', {
-    //   body: JSON.stringify({
-    //     name: event.target.name.value
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   method: 'POST'
-    // })
+  const getUserLocation =  () => {
+    setIsLoading(true);
 
-    // const result = await res.json()
+    
+     navigator.geolocation.getCurrentPosition(function async (position) {
+      setLongitude(position.coords.longitude);
+      setLatitude(position.coords.latitude);
 
-    console.log(
-      event.target.firstName.value +
-        " " +
-        event.target.lastName.value +
-        " " +
-        event.target.email.value +
-        " " +
-        event.target.propertyName.value +
-        " " +
-        event.target.description.value +
-        " " +
-        event.target.monthlyRent.value +
-        " " +
-        event.target.bed.value +
-        " " +
-        event.target.bath.value
+      setIsLoading(false);
 
-    );
-
-   
-    router.replace("/").then(()=>{
-      toast({
-        title: `Form Submitted!`,
-        status: 'success',
-        isClosable: true,
-      })
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
     });
-    
-    
+
+    // setTimeout(()=>{}, 3000);
+
   };
 
+  const submitForm = async (event) => {
+    // getUserLocation();
 
-  
-    
- 
-  
+    event.preventDefault();
+    const res = await fetch("/api/addProperty", {
+      body: JSON.stringify({
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        propertyName: event.target.propertyName.value,
+        description: event.target.description.value,
+        monthlyRent: event.target.monthlyRent.value,
+        bedNumber: event.target.bed.value,
+        bathNumber: event.target.bath.value,
+        latitude: event.target.lat.value,
+        longitude: event.target.long.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+
+    const result = await res.json();
+
+    // console.log(
+    //   event.target.firstName.value +
+    //     " " +
+    //     event.target.lastName.value +
+    //     " " +
+    //     event.target.email.value +
+    //     " " +
+    //     event.target.propertyName.value +
+    //     " " +
+    //     event.target.description.value +
+    //     " " +
+    //     event.target.monthlyRent.value +
+    //     " " +
+    //     event.target.bed.value +
+    //     " " +
+    //     event.target.bath.value +
+    //     " " +
+    //     event.target.lat.value +
+    //     " " +
+    //     event.target.long.value
+
+    // );
+    // console.log(res);
+
+    router.replace("/").then(() => {
+      toast({
+        title: `Form Submitted for Review!`,
+        status: "success",
+        isClosable: true,
+      });
+    });
+  };
 
   return (
     <Flex
@@ -99,6 +127,7 @@ export default function PropertyForm() {
           <Heading fontSize={"4xl"} textAlign={"center"} className="main-text">
             List Your Property!
           </Heading>
+          {/* <Button onClick={getUserLocation}>Location</Button> */}
           <Text fontSize={"lg"} color={"whiteAplha.900"} className="sub-text">
             Fill these details to add your property
           </Text>
@@ -129,12 +158,10 @@ export default function PropertyForm() {
                 </Box>
               </HStack>
 
-
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
-
 
               <FormControl id="propertyName" isRequired>
                 <FormLabel>Property Name</FormLabel>
@@ -166,24 +193,44 @@ export default function PropertyForm() {
                 </Box>
               </HStack>
 
+              <HStack>
+                <Box>
+                  <FormControl id="latitude" isRequired>
+                    <FormLabel>Latitude</FormLabel>
+                    <Input type="number" value={latitude} />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <FormControl id="longitude" isRequired>
+                    <FormLabel>Longitude</FormLabel>
+                    <Input type="number" value={longitude} />
+                  </FormControl>
+                </Box>
+
+                <Box>
+                  <Button onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
+                </Box>
+              </HStack>
+
+              <HStack>
+                {isLoading && (
+                  <Spinner/>
+                )}
+              </HStack>
 
               <FormControl id="description" isRequired>
                 <FormLabel>Property Description</FormLabel>
 
-                <InputGroup >
-               
-                <Input type='text' css={{height:100}}/>
-                
-              </InputGroup>
-              {/* <Textarea type="textarea" id="autosize" /> */}
-                
+                <InputGroup>
+                  <Input type="text" css={{ height: 100 }} />
+                </InputGroup>
+                {/* <Textarea type="textarea" id="autosize" /> */}
               </FormControl>
 
-
-                {/* <Box>
+              {/* <Box>
                 <ImageUpload/> 
                 </Box> */}
-
 
               <Stack spacing={10} pt={2}>
                 <Button

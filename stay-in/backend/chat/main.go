@@ -23,7 +23,7 @@ func main() {
 			return err
 		}
 		pusherClient.Trigger("chat", "message", data)
-		return c.JSON([]string{})
+		return c.JSON(data)
 	})
 
 	app.Listen(":8000")
