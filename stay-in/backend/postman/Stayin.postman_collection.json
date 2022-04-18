@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "cd09632e-2407-4a6b-980f-e28aba6e440a",
+		"name": "AutoServ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/stars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"appointmentDate\": \"13th feb\",\r\n    \"email\": \"postman@email.com\",\r\n    \"firstName\": \"postman\",\r\n    \"lastName\": \"test\",\r\n    \"phoneNumber\": \"12345\",\r\n    \"registrationNumber\": \"12345678\",\r\n    \"serviceType\": \"Interim\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/stars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stars"
+					],
+					"query": [
+						{
+							"key": "Name",
+							"value": "TestPostman",
+							"disabled": true
+						},
+						{
+							"key": "Email",
+							"value": "postman@email.com",
+							"disabled": true
+						},
+						{
+							"key": "PhoneNumber",
+							"value": "123456",
+							"disabled": true
+						},
+						{
+							"key": "CarNumber",
+							"value": "ABC123",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "Full",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getClient?trackingID=4567446831",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getClient?trackingID=4567446831",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getClient"
+					],
+					"query": [
+						{
+							"key": "trackingID",
+							"value": "4567446831"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/deleteClient?trackingID=4567446831",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trackingID\": \"postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/deleteClient?trackingID=4567446831",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteClient"
+					],
+					"query": [
+						{
+							"key": "trackingID",
+							"value": "4567446831"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateClient?trackingID=4567446831",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trackingID\": \"4567446831\", \r\n    \"appointmentDate\": \"Tue Apr 19 2022 00:00:00 GMT-0400 (Eastern Daylight Time)\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateClient?trackingID=4567446831&appointmentDate=11th Novemeber",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateClient"
+					],
+					"query": [
+						{
+							"key": "trackingID",
+							"value": "4567446831"
+						},
+						{
+							"key": "appointmentDate",
+							"value": "11th Novemeber"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
