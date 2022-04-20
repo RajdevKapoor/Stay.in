@@ -209,7 +209,7 @@ export default function PropertyForm() {
                 </Box>
 
                 <Box>
-                  <Button onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
+                  <Button className="location-button" onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
                 </Box>
               </HStack>
 
