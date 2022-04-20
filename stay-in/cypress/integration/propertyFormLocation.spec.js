@@ -6,12 +6,6 @@ context("Property Form", () => {
   });
 
   it("Checks if elements of form loaded correctly", () => {
-
- 
-
-    
-
-      
     cy.get(".chakra-heading").should("contain", "List Your Property!");
 
     cy.get(".chakra-text").should(
@@ -24,17 +18,14 @@ context("Property Form", () => {
       .should("contain", "Latitude")
       .should("contain", "Longitude");
 
-      
+    //Find the "Get Location" Button
+    cy.get("Button").should("contain", "Get Location");
 
-        //Find the "Get Location" Button
-        cy.get("Button").should("contain", "Get Location");
+    //Click button
+    cy.get(".location-button").click().first;
 
-        //Click button
-        cy.get(".location-button").click().first;
-
-        //Check if Location Filled automatically
-        cy.get('input[id="latitude"]').should("have.value", 29.6277764)
-        cy.get('input[id="longitude"]').should("have.value", -82.3777229)
-    
+    //Check if Location Filled automatically
+    cy.get('input[id="latitude"]').should("have.value", 29.6277764);
+    cy.get('input[id="longitude"]').should("have.value", -82.3777229);
   });
 });
