@@ -1,10 +1,11 @@
 /// <reference types="cypress"/>
-
+import 'cypress-file-upload'
 context("Property Form", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/propertyform/");
   });
 
+  const file = "house.jpg";
   const llText = "A very very very long text that wpuld probabaly be too large for yu to read or maybe too long for me to type. But you know I'm only doung my typing preactice by this rather than testing."
   it("Checks if elements of form loaded correctly", () => {
     cy.get(".chakra-heading").should("contain", "List Your Property!");
@@ -37,7 +38,10 @@ context("Property Form", () => {
       .should("contain", "Bath")
 
       .get('label[id="description-label"]')
-      .should("contain", "Description");
+      .should("contain", "Description")
+      
+      .get('input[id="imageFile"')
+      .should("contain", "");
 
     cy.get('input[id="firstName"]')
       .type("Test")
@@ -76,6 +80,9 @@ context("Property Form", () => {
       .get('input[id="description"]')
       .type(llText)   
       .should("have.value", llText);
+      
+      cy.get('input[id="imageFile"')
+      .attachFile(file);
 
     // cy.get(".search-filters")
     //   .children()
