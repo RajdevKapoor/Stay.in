@@ -1,16 +1,15 @@
 package models
 
-type Stay struct {
-	id string `json:"id"`
-	userId string `json:"userId"`
-	state string `json:"state"`
-	lat float64 `json:"lat"`
-	long float64 `json:"long"`
-	purpose string `json:"purpose"`
-	price float64 `json:"price"`
-	Title  string `json:"name"`
-	Author string `json:"author"`
-	rooms int    `json:"rooms"`
-	baths int    `json:"baths"`
-	area float64 `json:"area"`
+type For_rents struct {
+	Id int `json:"id"`
+	UserId string `json:"userId"`
+	State string `json:"state"`
+	Lat float64 `json:"lat"`
+	Long float64 `json:"long"`
+	Purpose string `json:"purpose"`
+	Price float64 `json:"price"`
+	Title  string `json:"title"`
+	Rooms int    `json:"rooms"`
+	Baths int    `json:"baths"`
+	Area float64 `json:"area"`
 }
