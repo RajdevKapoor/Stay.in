@@ -62,7 +62,8 @@ func (a *App) handler(w http.ResponseWriter, r *http.Request) {
 	// Create a test Star.
 	//a.DB.Create(&ClientDetails{FirstName: "test"})
 	fmt.Println("inside handler")
-
+	//fmt.Println(w)
+	fmt.Println(r.Body)
 	a.DB.Create(&ClientDetails{
 		AppointmentDate:    "13th feb",
 		PhoneNumber:        "12345",
