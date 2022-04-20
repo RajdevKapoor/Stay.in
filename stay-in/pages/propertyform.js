@@ -18,6 +18,7 @@ import {
   useToast,
   Spinner
 } from "@chakra-ui/react";
+import Image from 'next/image'
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import "../components/propertyForm/fileUpload";
@@ -26,6 +27,7 @@ import HelloMessage from "../components/propertyForm/fileUpload";
 import ImageUpload from "../components/propertyForm/fileUpload";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import ImagePicker from "../components/propertyForm/imagePicker"
 
 // export default function PropertyForm() {
 export default function PropertyForm() {
@@ -209,7 +211,7 @@ export default function PropertyForm() {
                 </Box>
 
                 <Box>
-                  <Button onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
+                  <Button className="location-button" onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
                 </Box>
               </HStack>
 
@@ -230,6 +232,14 @@ export default function PropertyForm() {
 
               {/* <Box>
                 <ImageUpload/> 
+                </Box> */}
+
+                 <Box>
+                <ImagePicker/>
+                </Box>
+
+                {/* <Box>
+                 <Image src={ "/../assets/images/house.jpg/"} layout='fill'/>
                 </Box> */}
 
               <Stack spacing={10} pt={2}>

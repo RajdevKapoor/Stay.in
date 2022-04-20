@@ -37,3 +37,9 @@ Testing Demo:
 
 https://user-images.githubusercontent.com/43610780/161365186-b1a0b0ab-efd7-4241-afd4-8131987d86f0.mov
 
+Chat Feature Testing:
+
+https://user-images.githubusercontent.com/47007121/164126702-73875f5c-32c7-4666-848f-0fb43634963c.mp4
+
+
+
