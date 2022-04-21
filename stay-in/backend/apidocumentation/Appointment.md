@@ -1,9 +1,8 @@
 
 
 
-## Create User Account using Register
+## Schedule Appointment
 
-Create an Account for the User if an Account for that particular User does not already exist.
 
 **URL** : ``` /api/schedule/ ```
 
