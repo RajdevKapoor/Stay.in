@@ -205,3 +205,132 @@ func UpdateStays(db *gorm.DB) gin.HandlerFunc {
 	// return the loginHandlerfunction
 	return gin.HandlerFunc(fn)
 }
+
+
+func GetSchedules(db *gorm.DB) gin.HandlerFunc {
+	fn := func(c *gin.Context) {
+
+		schedule_id, err := strconv.Atoi(c.Param("id"))
+
+		if(err != nil){
+			return
+		}
+
+		var record []models.Appointments
+
+		
+		if err := db.Where("id = ?", schedule_id).First(&record).Error; err != nil {
+			// if err := db.Find(&record).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"data": record})
+
+	}
+
+	// return the loginHandlerfunction
+	return gin.HandlerFunc(fn)
+}
+
+
+func CreateSchedules(db *gorm.DB) gin.HandlerFunc {
+	fn := func(c *gin.Context) {
+		var json models.Appointments
+		// try to bind the request json to the Login struct
+		if err := c.ShouldBindJSON(&json); err != nil {
+			// return bad request if field names are wrong
+			// and if fields are missing
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		// // strips HTML input from user for security purpose
+		// p := bluemonday.StripTagsPolicy()
+
+		// json.Source = p.Sanitize(json.Source)
+		// json.Destination = p.Sanitize(json.Destination)
+		// json.Date_of_trip = p.Sanitize(json.Date_of_trip)
+		// json.Time_of_trip = p.Sanitize(json.Time_of_trip)
+
+		// create the announcement
+		result := db.Create(&json)
+
+		if result.Error != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"result": "appointment created successfully",
+		})
+	}
+
+	// return the loginHandlerfunction
+	return gin.HandlerFunc(fn)
+}
+
+
+
+func DeleteSchedules(db *gorm.DB) gin.HandlerFunc {
+	fn := func(c *gin.Context) {
+
+		schedule_id, err := strconv.Atoi(c.Param("id"))
+
+		if(err != nil){
+			return
+		}
+
+		var record models.Appointments
+		if err := db.Where("id = ?", schedule_id).Delete(&record).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"data": true})
+
+	}
+
+	// return the loginHandlerfunction
+	return gin.HandlerFunc(fn)
+}
+
+
+func UpdateSchedules(db *gorm.DB) gin.HandlerFunc {
+	fn := func(c *gin.Context) {
+		var json models.Appointments
+		// try to bind the request json to the Login struct
+		if err := c.ShouldBindJSON(&json); err != nil {
+			// return bad request if field names are wrong
+			// and if fields are missing
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		// strips HTML input from user for security purpose
+		// p := bluemonday.StripTagsPolicy()
+
+		// json.Username = p.Sanitize(json.Username)
+		// json.Password = p.Sanitize(json.Password)
+		// json.Fname = p.Sanitize(json.Fname)
+		// json.Lname = p.Sanitize(json.Lname)
+		// json.Phoneno = p.Sanitize(json.Phoneno)
+		// json.Carname = p.Sanitize(json.Carname)
+		// json.Bio = p.Sanitize(json.Bio)
+
+		//Fetching user information using username
+		var us models.Appointments
+		db.Find(&us, "id = ?", json.Id)
+
+		result := db.Model(&us).Where("id=?", json.Id).Updates(json)
+
+		if result.Error != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, us)
+	}
+	// return the loginHandlerfunction
+	return gin.HandlerFunc(fn)
+}
+
