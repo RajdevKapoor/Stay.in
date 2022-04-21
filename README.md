@@ -108,3 +108,8 @@ https://github.com/RajdevKapoor/Stay.in/blob/main/sprint4.md
 - Rajdev Kapoor [@RajdevKapoor](https://www.github.com/RajdevKapoor) - (Frontend / Backend)
 - Shivam Gupta [@shivamgupta-7](https://www.github.com/shivamgupta-7) - (Frontend / Backend)
 
+
+#Tech Stack
+Front-End: React
+Back - End: GoLang
+Database: SQLite
