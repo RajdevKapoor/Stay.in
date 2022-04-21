@@ -16,18 +16,17 @@ import {
   Link,
   toast,
   useToast,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
-import Image from 'next/image'
+
+//import firebase from "../firebase/clientApp";
 import { useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
 import "../components/propertyForm/fileUpload";
-import PicturesWall from "../components/propertyForm/fileUpload";
-import HelloMessage from "../components/propertyForm/fileUpload";
-import ImageUpload from "../components/propertyForm/fileUpload";
-import { useEffect } from "react";
+
 import { useRouter } from "next/router";
-import ImagePicker from "../components/propertyForm/imagePicker"
+import ImagePicker from "../components/propertyForm/imagePicker";
+import firebase from "./clientApp";
 
 // export default function PropertyForm() {
 export default function PropertyForm() {
@@ -39,11 +38,10 @@ export default function PropertyForm() {
   const toast = useToast();
   const router = useRouter();
 
-  const getUserLocation =  () => {
+  const getUserLocation = () => {
     setIsLoading(true);
 
-    
-     navigator.geolocation.getCurrentPosition(function async (position) {
+    navigator.geolocation.getCurrentPosition(function async(position) {
       setLongitude(position.coords.longitude);
       setLatitude(position.coords.latitude);
 
@@ -54,12 +52,26 @@ export default function PropertyForm() {
     });
 
     // setTimeout(()=>{}, 3000);
-
   };
 
   const submitForm = async (event) => {
-    // getUserLocation();
+    // Initialise Firebase Db
+    const db = firebase.firestore();
 
+    // Write to DB - WIP
+    await db.collection("Property Reviews").add({
+      firstName: event.target.firstName.value,
+      lastName: event.target.lastName.value,
+      email: event.target.email.value,
+      propertyName: event.target.propertyName.value,
+      description: event.target.description.value,
+      monthlyRent: event.target.monthlyRent.value,
+      bedNumber: event.target.bed.value,
+      bathNumber: event.target.bath.value,
+      latitude: event.target.latitude.value,
+      longitude: event.target.longitude.value,
+      img: localStorage.getItem("recentImage"),
+    });
     event.preventDefault();
     const res = await fetch("/api/addProperty", {
       body: JSON.stringify({
@@ -71,8 +83,9 @@ export default function PropertyForm() {
         monthlyRent: event.target.monthlyRent.value,
         bedNumber: event.target.bed.value,
         bathNumber: event.target.bath.value,
-        latitude: event.target.lat.value,
-        longitude: event.target.long.value,
+        latitude: event.target.latitude.value,
+        longitude: event.target.longitude.value,
+        img: localStorage.getItem("recentImage"),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -82,29 +95,28 @@ export default function PropertyForm() {
 
     const result = await res.json();
 
-    // console.log(
-    //   event.target.firstName.value +
-    //     " " +
-    //     event.target.lastName.value +
-    //     " " +
-    //     event.target.email.value +
-    //     " " +
-    //     event.target.propertyName.value +
-    //     " " +
-    //     event.target.description.value +
-    //     " " +
-    //     event.target.monthlyRent.value +
-    //     " " +
-    //     event.target.bed.value +
-    //     " " +
-    //     event.target.bath.value +
-    //     " " +
-    //     event.target.lat.value +
-    //     " " +
-    //     event.target.long.value
-
-    // );
-    // console.log(res);
+    console.log(
+      event.target.firstName.value +
+        " " +
+        event.target.lastName.value +
+        " " +
+        event.target.email.value +
+        " " +
+        event.target.propertyName.value +
+        " " +
+        event.target.description.value +
+        " " +
+        event.target.monthlyRent.value +
+        " " +
+        event.target.bed.value +
+        " " +
+        event.target.bath.value +
+        " " +
+        event.target.lat.value +
+        " " +
+        event.target.long.value
+    );
+    console.log(res);
 
     router.replace("/").then(() => {
       toast({
@@ -211,15 +223,17 @@ export default function PropertyForm() {
                 </Box>
 
                 <Box>
-                  <Button className="location-button" onClick={getUserLocation} style={{marginTop:"25%"}}>Get Location</Button>
+                  <Button
+                    className="location-button"
+                    onClick={getUserLocation}
+                    style={{ marginTop: "25%" }}
+                  >
+                    Get Location
+                  </Button>
                 </Box>
               </HStack>
 
-              <HStack>
-                {isLoading && (
-                  <Spinner/>
-                )}
-              </HStack>
+              <HStack>{isLoading && <Spinner />}</HStack>
 
               <FormControl id="description" isRequired>
                 <FormLabel>Property Description</FormLabel>
@@ -227,20 +241,11 @@ export default function PropertyForm() {
                 <InputGroup>
                   <Input type="text" css={{ height: 100 }} />
                 </InputGroup>
-                {/* <Textarea type="textarea" id="autosize" /> */}
               </FormControl>
 
-              {/* <Box>
-                <ImageUpload/> 
-                </Box> */}
-
-                 <Box>
-                <ImagePicker/>
-                </Box>
-
-                {/* <Box>
-                 <Image src={ "/../assets/images/house.jpg/"} layout='fill'/>
-                </Box> */}
+              <Box>
+                <ImagePicker />
+              </Box>
 
               <Stack spacing={10} pt={2}>
                 <Button
