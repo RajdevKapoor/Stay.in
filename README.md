@@ -21,7 +21,16 @@ Stay.in does not share any personal information or save credit card information.
 ## Demo video functionality
 
 
+https://user-images.githubusercontent.com/43610780/164373297-199f2ca2-0d30-424c-b9a1-2b31df18805e.mp4
+
+
+For better quality visit: https://youtu.be/rtLu-jxoL4M
+
 ## Cypress test video
+
+
+https://user-images.githubusercontent.com/43610780/164369970-55c1ac87-c613-4cf9-b5b8-8ee27304d22d.mp4
+
 
 
 ## Backend unit test video
