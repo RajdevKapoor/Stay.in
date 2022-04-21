@@ -29,6 +29,7 @@ Stay.in does not share any personal information or save credit card information.
 
 ## 📑 API Documentation
 
+https://github.com/RajdevKapoor/Stay.in/blob/main/API.md
 
 ## 📋 Link to Project board
 
