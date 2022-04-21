@@ -59,6 +59,8 @@ Admin Panel Authorization implemented using NextAuth
 ```http
   /homescreen
 ```
+#### Postman ScreenShots Followed by Documentation
+https://github.com/RajdevKapoor/Stay.in/blob/main/stay-in/backend/README.md
 
 #### Appointment
 https://github.com/RajdevKapoor/Stay.in/blob/b1fdea6173ad5038af4ebe8dffa32204134f8086/stay-in/backend/apidocumentation/Appointment.md
