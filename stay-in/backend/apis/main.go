@@ -51,6 +51,11 @@ func SetupRouter(db *gorm.DB, storeName string, sessionName string) *gin.Engine 
 	r.POST("/createStay", c.InsertStays(db))
 	r.DELETE("/deleteStay/:id", c.DeleteStays(db))
 	r.PUT("/updateStay/", c.UpdateStays(db))
+
+	r.GET("/schedule/:id", c.GetSchedules(db))
+	r.POST("/createSchedule", c.CreateSchedules(db))
+	r.DELETE("/deleteSchedule/:id", c.DeleteSchedules(db))
+	r.PUT("/updateSchedule/", c.UpdateSchedules(db))
 	return r
 
 }
@@ -69,6 +74,7 @@ func main(){
 
 	// Migrate the User model to the db
 	db.AutoMigrate(&m.For_rents{})
+	db.AutoMigrate(&m.Appointments{})
 	// db.AutoMigrate(&m.REGISTEREDTRIPS{})
 	// db.AutoMigrate(&m.TRIPMAPPINGS{})
 
