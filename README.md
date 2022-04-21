@@ -2,7 +2,8 @@
 # 🏡 Stay.in
 *One Stop solution for all your stay-in-g problems*
 ## 📝 Project Description
-Stay.in is a one-stop shop for all of your subleasing needs. We have two portals: one for clients and one for administrators.
+Stay.in is a one-stop shop for all of your subleasing needs. Our mission is to provide a global marketplace where tenants and landlords can match ALL their rental housing needs.
+We have two portals: one for clients and one for administrators.
 
 Ordinary users can see residences for sale and rent on the client side, depending on their needs. We've also added Filter, which allows users to narrow down their search by applying several filters such as purpose, rent frequency, minimum and maximum price, rooms, bathrooms, beds, and furnish kind.
 
