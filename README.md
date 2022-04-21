@@ -91,6 +91,8 @@ Admin Panel Authorization implemented using NextAuth
   /homescreen
 ```
 
+#### Postman Collection
+Postman: https://github.com/RajdevKapoor/Stay.in/blob/ed342506eaa4e50f103c767b212ef12b3f6eee54/stay-in/backend/postman/Stayin.postman_collection.json
 
 ## 📋 Link to Project board
 
