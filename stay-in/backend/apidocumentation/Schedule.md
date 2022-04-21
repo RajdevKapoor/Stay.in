@@ -37,7 +37,7 @@ Create an Account for the User if an Account for that particular User does not a
 | ServiceType | purpose of visit
 | TrackingID | Request ID for schedule        
 | Firstname      | first name of user      
-| Lastname   | last name of user |
+| Lastname   | last name of user 
 Data Examples for user
 ```
 {
