@@ -1,13 +1,21 @@
 
 # 🏡 Stay.in
 *One Stop solution for all your stay-in-g problems*
-## 📝 Description of your application
+## 📝 Project Description
 Stay.in is a one-stop shop for all of your subleasing needs. We have two portals: one for clients and one for administrators.
 
 Ordinary users can see residences for sale and rent on the client side, depending on their needs. We've also added Filter, which allows users to narrow down their search by applying several filters such as purpose, rent frequency, minimum and maximum price, rooms, bathrooms, beds, and furnish kind.
 
 We developed a signin for the administrator panel so that registered users can login to the portal and then fill out a form to display their property to the client panel.
 
+For TENANTS
+Easily search every type of rental. Whether it's for short term or long term, furnished or unfurnished, browse apartments from our updated database of rentals and find a rental that is perfect for you.
+
+For LANDLORDS
+POST FREE & SUBLEASE EASY! If you are a landlord, leaseholder or a roommate with a place to rent, you can post it on our platform. Post daily, weekly, monthly or yearly rentals and rooms and tenants will contact you directly.
+
+PRIVACY AND SECURITY
+Stay.in does not share any personal information or save credit card information. Even email addresses are not accessible to landlords or tenants.
 
 ## Demo video functionality
 
