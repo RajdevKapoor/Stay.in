@@ -56,67 +56,67 @@ export default function PropertyForm() {
 
   const submitForm = async (event) => {
     // Initialise Firebase Db
-    const db = firebase.firestore();
+    // const db = firebase.firestore();
 
     // Write to DB - WIP
-    await db.collection("Property Reviews").add({
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      email: event.target.email.value,
-      propertyName: event.target.propertyName.value,
-      description: event.target.description.value,
-      monthlyRent: event.target.monthlyRent.value,
-      bedNumber: event.target.bed.value,
-      bathNumber: event.target.bath.value,
-      latitude: event.target.latitude.value,
-      longitude: event.target.longitude.value,
-      img: localStorage.getItem("recentImage"),
-    });
+    // await db.collection("Property Reviews").add({
+    //   firstName: event.target.firstName.value,
+    //   lastName: event.target.lastName.value,
+    //   email: event.target.email.value,
+    //   propertyName: event.target.propertyName.value,
+    //   description: event.target.description.value,
+    //   monthlyRent: event.target.monthlyRent.value,
+    //   bedNumber: event.target.bed.value,
+    //   bathNumber: event.target.bath.value,
+    //   latitude: event.target.latitude.value,
+    //   longitude: event.target.longitude.value,
+    //   img: localStorage.getItem("recentImage"),
+    // });
     event.preventDefault();
-    const res = await fetch("/api/addProperty", {
-      body: JSON.stringify({
-        firstName: event.target.firstName.value,
-        lastName: event.target.lastName.value,
-        email: event.target.email.value,
-        propertyName: event.target.propertyName.value,
-        description: event.target.description.value,
-        monthlyRent: event.target.monthlyRent.value,
-        bedNumber: event.target.bed.value,
-        bathNumber: event.target.bath.value,
-        latitude: event.target.latitude.value,
-        longitude: event.target.longitude.value,
-        img: localStorage.getItem("recentImage"),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    // const res = await fetch("/api/addProperty", {
+    //   body: JSON.stringify({
+    //     firstName: event.target.firstName.value,
+    //     lastName: event.target.lastName.value,
+    //     email: event.target.email.value,
+    //     propertyName: event.target.propertyName.value,
+    //     description: event.target.description.value,
+    //     monthlyRent: event.target.monthlyRent.value,
+    //     bedNumber: event.target.bed.value,
+    //     bathNumber: event.target.bath.value,
+    //     latitude: event.target.latitude.value,
+    //     longitude: event.target.longitude.value,
+    //     img: localStorage.getItem("recentImage"),
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: "POST",
+    // });
 
-    const result = await res.json();
+    // const result = await res.json();
 
-    console.log(
-      event.target.firstName.value +
-        " " +
-        event.target.lastName.value +
-        " " +
-        event.target.email.value +
-        " " +
-        event.target.propertyName.value +
-        " " +
-        event.target.description.value +
-        " " +
-        event.target.monthlyRent.value +
-        " " +
-        event.target.bed.value +
-        " " +
-        event.target.bath.value +
-        " " +
-        event.target.lat.value +
-        " " +
-        event.target.long.value
-    );
-    console.log(res);
+    // console.log(
+    //   event.target.firstName.value +
+    //     " " +
+    //     event.target.lastName.value +
+    //     " " +
+    //     event.target.email.value +
+    //     " " +
+    //     event.target.propertyName.value +
+    //     " " +
+    //     event.target.description.value +
+    //     " " +
+    //     event.target.monthlyRent.value +
+    //     " " +
+    //     event.target.bed.value +
+    //     " " +
+    //     event.target.bath.value +
+    //     " " +
+    //     event.target.lat.value +
+    //     " " +
+    //     event.target.long.value
+    // );
+    // console.log(res);
 
     router.replace("/").then(() => {
       toast({

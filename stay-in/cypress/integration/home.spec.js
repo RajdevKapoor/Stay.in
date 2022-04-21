@@ -10,11 +10,11 @@ context("Home Page", ()=>{
         //Check if Navbar present
         cy.get("header").contains("Stay.in");
 
-        //Check if Navbar has Menu
-        cy.get(".chakra-menu__menu-button").click().get(".chakra-menu__menu-list").should('contain', "Home").and("contain","Search").and("contain",  "Buy Property").and("contain",  "Rent Property");
+        //Check if Navbar has All elements
+        cy.get(".chakra-stack").should('contain', "Sign In").and("contain","Search").and("contain",  "Buy Property").and("contain",  "Rent Property");
         
-        //Check if Navbar has SignIn and SignUp
-        cy.get(".chakra-button").should("contain", "Sign In").and("contain", "Sign Up");
+        //Check if Navbar has List Property
+        cy.get(".chakra-button").should("contain", "List a Property!");
         
         //Check if 6 Rent-able properties loaded
         cy.get("p").contains("RENT A HOME");
@@ -23,6 +23,8 @@ context("Home Page", ()=>{
         //Check if 6 Sale-able properties loaded
         cy.get("p").contains("BUY A HOME");
         cy.get(".sale").children("div").should("have.length", 6);
+
+        cy.log(cy.url());        
     });
 
 
