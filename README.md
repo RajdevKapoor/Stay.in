@@ -27,6 +27,10 @@ Stay.in does not share any personal information or save credit card information.
 ## Backend unit test video
 
 
+https://user-images.githubusercontent.com/47007121/164364535-cbf3cdd9-8f92-4ecf-9f1a-1053be815938.mp4
+
+
+
 ## 📑 API Documentation
 
 https://github.com/RajdevKapoor/Stay.in/blob/main/API.md
